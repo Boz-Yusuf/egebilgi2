@@ -1,0 +1,41 @@
+version: "3"
+services:
+  postgres:
+    image: "postgres:latest"
+    environment:
+      - POSTGRES_USER=egebilgi
+      - POSTGRES_PASSWORD=9Io7PLZeU6QxFRB
+      - POSTGRES_DB=worddb
+  nginx:
+    depends_on:
+      - api
+      - client
+    restart: always
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./nginx
+    ports:
+      - "3050:80"
+  api:
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./server
+    volumes:
+      - /app/node_modules
+      - ./server:/app
+    environment:
+      - PGUSER=egebilgi
+      - PGHOST=localhost
+      - PGDATABASE=worddb
+      - PGPASSWORD=9Io7PLZeU6QxFRB
+      - PGPORT=5432
+  client:
+    stdin_open: true
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./client
+    volumes:
+      - /app/node_modules
+      - ./client:/app

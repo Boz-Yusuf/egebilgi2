@@ -1,0 +1,33 @@
+<div class="main_container">
+  <div class="container d-flex justify-content-center align-items-center" style="height: 100vh;">
+    <form #signInForm="ngForm" (ngSubmit)="onSubmit()" class="border border-2 rounded-2 p-5"
+      style="max-width: 800px; width: 600px;">
+      <h1 class="text-center mb-4">Egebilgi</h1>
+      <h3 class="mb-2 block border-bottom border-2" style="display: inline-block">Sign In</h3>
+      <div class="form-group mb-2">
+        <label for="name">User Name</label>
+        <input [(ngModel)]="userCredentials.username" type="text" name="name" class="form-control" id="name"
+          placeholder="Enter Username" required>
+        <small class="text-danger"
+          *ngIf="signInForm.controls['name'] && !signInForm.controls['name'].valid && signInForm.controls['name'].touched">
+          Please enter a valid username
+        </small>
+      </div>
+      <div class="form-group mb-3">
+        <label for="exampleInputPassword1">Password</label>
+        <input [(ngModel)]="userCredentials.password" type="password" name="password" class="form-control"
+          id="exampleInputPassword1" placeholder="Password" required>
+        <small class="text-danger"
+          *ngIf="signInForm.controls['password'] && !signInForm.controls['password'].valid && signInForm.controls['password'].touched">
+          Please enter a valid password.
+        </small>
+      </div>
+      <!-- <div class="form-group form-check mb-4">
+        <input [(ngModel)]="userCredentials.rememberMe" name="rememberMe" type="checkbox" class="form-check-input"
+          id="exampleCheck1">
+        <label class="form-check-label" for="exampleCheck1">Check me out</label>
+      </div> -->
+      <button [disabled]="!signInForm.form.valid" type="submit" class="btn btn-primary w-100">Sign In</button>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,6 @@
+<div class="row mt-4">
+  <div *ngFor="let answer of answerSet" class="col-lg-4 col-sm-12">
+    <input (click)="sendLabel(answer[1],answer[2])" type="button" class="btn btn-primary w-100 mb-3 border-0"
+      [value]="answer[0]" [attr.data-articleId]="answer[1]" [ngStyle]="{ 'background-color': answer[2] }">
+  </div>
+</div>

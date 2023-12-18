@@ -1,0 +1,9 @@
+.main_container {
+  background-image: url("../../../assets/images/bg-01.jpg");
+  background-color: #cccccc;
+}
+
+form {
+  background-color: whitesmoke;
+  opacity: 0.95;
+}

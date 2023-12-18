@@ -1,0 +1,51 @@
+<app-navbar></app-navbar>
+
+<div class="">
+  <div class="container bg-light p-5 position-absolute top-50 start-50 translate-middle">
+
+
+    <!-- * Selected Words Area -->
+    <div>
+      <app-selected-words-area [selectedWordsList]="currentSelection"></app-selected-words-area>
+    </div>
+
+
+    <!-- * Edit Buttons -->
+    <div class="mb-4 d-flex justify-content-between">
+      <div>
+        <button (click)="Cancel()" class="btn btn-danger">
+          <fa-icon [icon]="['fas', 'trash']"></fa-icon>
+          Cancel
+        </button>
+        <button (click)="Reselect()" class="btn btn-warning ms-2">
+          <fa-icon [icon]="['fas', 'undo']"></fa-icon>
+          Deselect
+        </button>
+      </div>
+      <div>
+        <button (click)="complate()" class="btn btn-success w-100"><fa-icon [icon]="['fas', 'check']"></fa-icon> Submit
+        </button>
+      </div>
+
+
+    </div>
+    <!-- * Word Buttons Area -->
+    <div class="d-flex flex-wrap mb-4">
+      <div class="mt-3" *ngFor="let word of wordList; let wordIndex  = index">
+        <div style="position: relative;">
+          <div class="rounded-1 px-2" style="position: absolute; top:-26px; left:0px"
+            [style.background-color]="isButtonSelected(wordIndex) === true ? '#53b2c2!important' : word.backgroundColor+'!important'">
+            <small class="text-white">{{word.label | label }}</small>
+          </div>
+          <button [id]="wordIndex" (click)="selectWord($event)" class="btn bg-light p-1"
+            style="font-size:x-large; border: 0px" [class]="word.available === false ? 'disabled' : ''"
+            [style.background-color]="isButtonSelected(wordIndex) === true ? '#53b2c2!important' : word.backgroundColor+'!important'">{{word.content}}</button>
+        </div>
+
+      </div>
+    </div>
+    <div class="border"></div>
+    <!-- * Options Component -->
+    <app-option-area [questionType]="answerType" (giveAnswer)="createFragment($event)"></app-option-area>
+  </div>
+</div>
