@@ -2,15 +2,19 @@ version: "3"
 services:
   postgres:
     image: "postgres:latest"
+    container_name: db
     environment:
       - POSTGRES_USER=egebilgi
       - POSTGRES_PASSWORD=9Io7PLZeU6QxFRB
       - POSTGRES_DB=worddb
+    volumes:
+      - ./db:/var/lib/postgresql/data
   nginx:
     depends_on:
       - api
       - client
     restart: always
+    container_name: nginx
     build:
       dockerfile: Dockerfile.dev
       context: ./nginx
@@ -20,6 +24,7 @@ services:
     build:
       dockerfile: Dockerfile.dev
       context: ./server
+    container_name: api
     volumes:
       - /app/node_modules
       - ./server:/app
@@ -31,6 +36,7 @@ services:
       - PGPORT=5432
   client:
     stdin_open: true
+    container_name: clien
     environment:
       - CHOKIDAR_USEPOLLING=true
     build:
